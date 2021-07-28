@@ -17,7 +17,7 @@ You need to have git installed You can install it with the following command in 
 To access this project on your local files, you can clone it using these steps
 
 * Open your terminal
-* Use this command to clone  `$ git clone  https://github.com/nancy88199488/photo-gallery.git/
+* Use this command to clone  `$ git clone  https://github.com/nancy88199488/pet_website.git/
 * This will clone the repositoty into your local folder
 
 ## Technologies Used
