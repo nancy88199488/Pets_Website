@@ -25,11 +25,44 @@
 
     <title>Pets Website</title>
 </head>
+<style type="text/css">
+    html,
+    body,
+    header,
+    .carousel {
+      height: 60vh;
+    }
+
+    @media (max-width: 740px) {
+
+      html,
+      body,
+      header,
+      .carousel {
+        height: 100vh;
+      }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+
+      html,
+      body,
+      header,
+      .carousel {
+        height: 100vh;
+      }
+    }
+
+  </style>
 
 <body style="background-image: url('/static/images/cartoon-pet-image.jpg');background-repeat: no-repeat; background-size: cover;">
     <div class="wrapper">
         <div id="content" >
-            {% include 'navbar.html' %} {% block content %} {% endblock %}
+            {% include 'navbar.html' %} 
+            {% include 'script.html'%}
+            {% include 'footer.html' %}
+            {% block content %}
+             {% endblock %}
         </div>
     </div>
 
