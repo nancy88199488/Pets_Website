@@ -49,23 +49,22 @@ def add_to_cart(request, slug):
     if order_qs.exists():
         order = order_qs[0]
         # check if the order item is in the order
-        if order.items.filter(item__slug=item.slug).exists():
-            order_item.quantity += 1
-            order_item.save()
+        if order.pets.filter(item__slug=pets.slug).exists():
+            order_pets.quantity += 1
+            order_pets.save()
             messages.info(request, "This item quantity was updated.")
-            return redirect("core:order-summary")
+            return redirect("PetParadise:order-summary")
         else:
-            order.items.add(order_item)
-            messages.info(request, "This item was added to your cart.")
-            return redirect("core:order-summary")
+            order.pets.add(order_pets)
+            messages.info(request, "This Pet was added to your cart.")
+            return redirect("PetParadise:order-summary")
     else:
         ordered_date = timezone.now()
         order = Order.objects.create(
             user=request.user, ordered_date=ordered_date)
-        order.pets.add(order_item)
-        messages.info(request, "This item was added to your cart.")
-        return redirect("core:order-summary")
-
+        order.pets.add(order_pets)
+        messages.info(request, "This pet was added to your cart.")
+        return redirect("PetParadise:order-summary")
 
 @login_required
 def remove_from_cart(request, slug):
@@ -76,23 +75,23 @@ def remove_from_cart(request, slug):
     )
     if order_qs.exists():
         order = order_qs[0]
-        # check if the order item is in the order
-        if order.items.filter(item__slug=item.slug).exists():
-            order_item = OrderPets.objects.filter(
-                item=item,
+        # check if the order pets is in the order
+        if order.pets.filter(pets__slug=pets.slug).exists():
+            order_pets = OrderPets.objects.filter(
+                pets = pets,
                 user=request.user,
                 ordered=False
             )[0]
-            order.items.remove(order_item)
-            order_item.delete()
-            messages.info(request, "This item was removed from your cart.")
-            return redirect("core:order-summary")
+            order.pets.remove(order_pets)
+            order_pets.delete()
+            messages.info(request, "This pet was removed from your cart.")
+            return redirect("PetParadise:order-summary")
         else:
-            messages.info(request, "This item was not in your cart")
-            return redirect("core:product", slug=slug)
+            messages.info(request, "This pet was not in your cart")
+            return redirect("PetParadise:pets", slug=slug)
     else:
         messages.info(request, "You do not have an active order")
-        return redirect("core:product", slug=slug)           
+        return redirect("PetParadise:pets", slug=slug)           
 
 @login_required(login_url='login')
 def index(request):
