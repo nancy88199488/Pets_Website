@@ -1,0 +1,29 @@
+<a class="navbar-brand font-weight-bold" href="{% url 'index' %}">Pet Website</a>
+  
+    <!-- Collapse button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+      aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="basicExampleNav">
+          <div class="col-sm-6 col-lg-6 d-flex justify-content-end">
+              {% if user.is_authenticated %}
+              {% else %}
+              <li class="nav-item active">
+                <img class="rounded-circle nav-img"src="{{ user.profile.profile_picture.url }}" alt="">
+               &nbsp; <span class="text-white">{{user.username|title}}</span>
+           </li>
+              <li class="list-unstyled">
+                  <a class='btn btn-sm btn-light font-weight-bold' href="{% url 'login'%}">Login</a>
+                  <a class='btn btn-sm btn-light font-weight-bold' href="{% url 'register'%}">Register</a>
+              </li>
+
+              {% endif %}
+        </div>
+
+    </div>
+
+  </nav>
+  <!--/Navbar-->
