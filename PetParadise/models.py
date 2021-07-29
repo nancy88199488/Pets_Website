@@ -51,6 +51,28 @@ class OrderPets(models.Model):
 
     def get_total_pets_price(self):
         return self.pets * self.pets.price
+
+class Order(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
+    pets = models.ManyToManyField(OrderPets)
+    ordered_date = models.DateTimeField()
+    ordered = models.BooleanField(default=False)
+
+    '''
+    1. Item added to cart
+    
+    '''
+
+    def __str__(self):
+        return self.user.username
+
+    def get_total(self):
+        total = 0
+        for order_pets in self.pets.all():
+            total += order_pets.get_final_price()
+
+        return total        
     
 def userprofile_receiver(sender, instance, created, *args, **kwargs):
     if created:
